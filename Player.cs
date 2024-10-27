@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -11,6 +11,14 @@ public class Player : MonoBehaviour
     private GameObject _lazerPrefab;
     [SerializeField]
     private GameObject _cannonPrefab;
+    [SerializeField]
+    private float _fireRateLazer = 0.3f;
+    [SerializeField]
+    private float _canFireLazer = -0.3f;
+    [SerializeField]
+    private float _fireRateCannon = 5;
+    [SerializeField]
+    private float _canFireCannon = -5f;
     
     // Start is called before the first frame update
     void Start()
@@ -18,22 +26,18 @@ public class Player : MonoBehaviour
         //Player Start Position
         transform.position = new Vector3(0,0,0);
 
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
         CalculateMovement();
 
-        //Spawns lazer Prefab
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            Instantiate(_lazerPrefab, transform.position + new Vector3(0,0,1.5f),Quaternion.Euler(90,0,0));
-        }
-        if(Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            Instantiate(_cannonPrefab, transform.position + new Vector3(0, 0, 1.5f), Quaternion.identity);
-        }
+        Shooting();
+
         
             
         
@@ -58,7 +62,14 @@ public class Player : MonoBehaviour
         {
             _speed = 5;
         }
-        
+        if (horizonalInput > 0)
+        {
+            _speed = 12;
+        }
+        else if (horizonalInput <0)
+        {
+            _speed = 12;
+        }
         
         // Player boundries
         if(transform.position.x >= 10)
@@ -77,6 +88,22 @@ public class Player : MonoBehaviour
         {
            transform.position = new Vector3(transform.position.x,0,-4);
         }
+    }
+    void Shooting()
+    {
+      
+        //Spawns lazer / Cannon Prefab
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > _canFireLazer)
+        {
+            _canFireLazer = Time.time + _fireRateLazer;
+            Instantiate(_lazerPrefab, transform.position + new Vector3(0,0,1.5f),Quaternion.Euler(90,0,0));
+        }
+        if(Input.GetKeyDown(KeyCode.Mouse1) && Time.time > _canFireCannon)
+        {
+
+            _canFireCannon = Time.time + _fireRateCannon;
+            Instantiate(_cannonPrefab, transform.position + new Vector3(0, 0, 1.5f), Quaternion.identity);
+        }  
     }
 
     

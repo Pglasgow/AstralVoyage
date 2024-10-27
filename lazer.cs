@@ -26,4 +26,5 @@ public class lazer : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 }
