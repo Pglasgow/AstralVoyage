@@ -37,15 +37,9 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-
         CalculateMovement();
 
         Shooting();
-
-        
-            
-        
-
 
     }
 

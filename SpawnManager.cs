@@ -23,15 +23,36 @@ public class SpawnManager : MonoBehaviour
         {
             while (true)
             {
-                Vector3 posToSpawn = new Vector3(Random.Range(-9f,9f),0,8);
+                Vector3 posToSpawn = GetRandomPositionOutsideBounds();
 
                 GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity);
 
                 newEnemy.transform.parent = _enemyContainer.transform;
                 
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(2.5f);
             }
 
         }
+    private Vector3 GetRandomPositionOutsideBounds()
+    {
+        float x, z;
+
+        bool spawnOnX = Random.Range(0, 2) == 0;
+
+        if (spawnOnX)
+        {
+
+            x = Random.Range(0, 2) == 0 ? Random.Range(-20f, -12f) : Random.Range(12f, 20f);
+            z = Random.Range(-8f, 8f);
+        }
+        else
+        {
+
+            z = Random.Range(0, 2) == 0 ? Random.Range(-15f, -8f) : Random.Range(8f, 15f);
+            x = Random.Range(-12f, 12f);
+        }
+
+        return new Vector3(x, 0, z);
+    }
 
 }
