@@ -6,7 +6,7 @@ using UnityEngine;
 public class lazer : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 10.5f; //Lazer speed
+    private float speed = 10.5f; 
 
     // Start is called before the first frame update
     void Start()
@@ -17,10 +17,10 @@ public class lazer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Lazer moves in forward direction
+
         transform.Translate(Vector3.up * speed * Time.deltaTime);
 
-        //Lazer destoyed
+
         if(transform.position.z >= 6.5)
         {
             Destroy(gameObject);

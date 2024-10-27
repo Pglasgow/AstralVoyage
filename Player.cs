@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -19,6 +20,9 @@ public class Player : MonoBehaviour
     private float _fireRateCannon = 5;
     [SerializeField]
     private float _canFireCannon = -5f;
+    [SerializeField]
+    private int _health = 100;
+
     
     // Start is called before the first frame update
     void Start()
@@ -68,7 +72,7 @@ public class Player : MonoBehaviour
         }
         else if (horizonalInput <0)
         {
-            _speed = 12;
+            _speed =12;
         }
         
         // Player boundries
@@ -105,6 +109,14 @@ public class Player : MonoBehaviour
             Instantiate(_cannonPrefab, transform.position + new Vector3(0, 0, 1.5f), Quaternion.identity);
         }  
     }
+    public void Damage()
+    {
+        _health -= 5 ;
 
-    
+        if(_health < 1)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
 }
